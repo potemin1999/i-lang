@@ -1,0 +1,87 @@
+Checks: >-
+  readability-identifier-naming,
+  -clang-analyzer-*,
+  -clang-diagnostic-*,
+  -cppcoreguidelines-avoid-c-arrays,
+  -cppcoreguidelines-avoid-goto,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-macro-usage,
+  -cppcoreguidelines-no-malloc,
+  -cppcoreguidelines-non-private-member-variables-in-classes,
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  cppcoreguidelines-pro-type-const-cast,
+  cppcoreguidelines-pro-type-cstyle-cast,
+  cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-type-union-access,
+  cppcoreguidelines-pro-type-vararg,
+  -cppcoreguidelines-special-member-functions,
+  hicpp-avoid-goto,
+  hicpp-no-array-decay,
+  -hicpp-special-member-functions,
+  modernize-avoid-bind,
+  -modernize-avoid-c-arrays,
+  modernize-use-equals-default,
+  modernize-use-default-member-init,
+  -modernize-use-trailing-return-type,
+  -modernize-use-using,
+  readability-braces-around-statements,
+  -readability-else-after-return,
+  readability-function-size,
+  readability-identifier-naming,
+  -readability-implicit-bool-conversion,
+  -readability-isolate-declaration,
+  readability-magic-numbers,
+  readability-named-parameter,
+  readability-redundant-member-init,
+  -readability-redundant-preprocessor,
+  readability-simplify-boolean-expr,
+  readability-uppercase-literal-suffix,
+  google-default-arguments,
+  google-runtime-operator
+
+CheckOptions:
+  - { key: readability-identifier-naming.NamespaceCase,       value: CamelCase }
+  # class name
+  - { key: readability-identifier-naming.ClassCase,           value: CamelCase  }
+  # static const class member field
+  - { key: readability-identifier-naming.ClassConstantCase,   value: UPPER_CASE }
+  # static non-const class member field
+  - { key: readability-identifier-naming.ClassMemberCase,     value: camelBack  }
+  # non-static class member method
+  - { key: readability-identifier-naming.ClassMethodCase,     value: camelBack  }
+  # non-static const class member field
+  - { key: readability-identifier-naming.ConstantMemberCase,  value: camelBack  }
+  # constexpr non-class method
+  - { key: readability-identifier-naming.ConstexprFunctionCase,value: camelBack  }
+  # constexpr class method
+  - { key: readability-identifier-naming.ConstexprMethodCase, value: camelBack  }
+  # constexpr non-class variable
+  - { key: readability-identifier-naming.ConstexprVariableCase,value: camelBack  }
+  # enum name
+  - { key: readability-identifier-naming.EnumCase,            value: CamelCase  }
+  # enum values name
+  - { key: readability-identifier-naming.EnumConstantCase,    value: UPPER_CASE }
+  # non-class functions
+  - { key: readability-identifier-naming.FunctionCase,        value: CamelCase  }
+  # global non-class constant
+  - { key: readability-identifier-naming.GlobalConstantCase,  value: UPPER_CASE }
+  # global non-class non-namespace function
+  - { key: readability-identifier-naming.GlobalFunctionCase,  value: CamelCase  }
+  - { key: readability-identifier-naming.GlobalVariableCase,  value: camelBack  }
+  # function variables
+  - { key: readability-identifier-naming.LocalConstantCase,   value: camelBack  }
+  - { key: readability-identifier-naming.LocalVariableCase,   value: camelBack  }
+  # - { key: readability-identifier-naming.MemberPrefix,        value: m_         }
+  - { key: readability-identifier-naming.MemberCase,          value: camelBack  }
+  # non-static non-const member function
+  - { key: readability-identifier-naming.MethodCase,          value: camelBack  }
+  # - { key: readability-identifier-naming.PrivateMemberPrefix, value: m_         }
+  - { key: readability-identifier-naming.PrivateMemberCase,   value: camelBack  }
+  - { key: readability-identifier-naming.StructCase,          value: CamelCase  }
+  - { key: readability-identifier-naming.VariableCase,        value: lower_case }
+  - { key: readability-identifier-naming.VirtualMethodCase,   value: camelBack  }
+
+

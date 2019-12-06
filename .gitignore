@@ -1,0 +1,10 @@
+.idea/*
+#!.idea/codeStyles
+build/
+ci/
+ci_workdir/
+ci_logs/
+cmake-build-debug/
+cmake-build-release/
+cmake-build-test/
+src/generated/Parser.output

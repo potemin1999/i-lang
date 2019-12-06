@@ -1,0 +1,55 @@
+image: docker:19.03.1
+
+services:
+  - docker:19.03.1-dind
+
+stages:
+  - test
+  - deploy
+
+cppcheck-test:
+  stage: test
+  script:
+    - docker login -u "$CI_TOOLS_REGISTRY_USER" -p "$CI_TOOLS_REGISTRY_PASSWORD" $CI_REGISTRY
+    - >
+      docker run
+      -v "${CI_PROJECT_DIR}/src:/worker/src:ro"
+      -v "${CI_PROJECT_DIR}/ci_logs:/worker/ci_logs"
+      ${CI_REGISTRY}/teamplate-teamname-t/ci-tools/cpp-checker:latest
+      "${CI_PROJECT_URL}/blob/${CI_COMMIT_SHA}"
+      "commit ${CI_COMMIT_TITLE}"
+  artifacts:
+    paths:
+      - ci_logs/cppcheck-report.html
+    expire_in: 1 day
+
+pages:
+  stage: deploy
+  image: alpine:3.10
+  only:
+    - develop
+    - master
+  script:
+    - 'which git || ( apk add --update git )'
+    - 'which ssh-agent || ( apk add --update openssh-client )'
+    - eval $(ssh-agent -s)
+    - echo "$REPORT_SSH_PRIV_KEY" | ssh-add -
+    - git config --global user.email "potemin1999@bk.ru"
+    - git config --global user.name "Ilya Potemin"
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H 'gitlab.com' >> ~/.ssh/known_hosts
+    - git checkout test-reports || git checkout --orphan test-reports || echo "unable to checkout!"
+    - git status
+    - git remote add robot_origin git@gitlab.com:teamplate-teamname-t/i-lang.git || echo "remote exists"
+    - git fetch robot_origin
+    - git reset --hard robot_origin/test-reports
+    - mkdir public || echo "folder exists"
+    - mkdir public/reports || echo "folder exists"
+    - mkdir public/reports/${CI_COMMIT_SHA} || echo "folder exists"
+    - cp ci_logs/cppcheck-report.html public/reports/${CI_COMMIT_SHA}/cppcheck_report.html
+    - git add public/reports/${CI_COMMIT_SHA}/cppcheck_report.html
+    - git commit -m "[skip ci] added static analysis reports for commit ${CI_COMMIT_SHA}"
+    - git push -v robot_origin test-reports
+  artifacts:
+    paths:
+      - public/

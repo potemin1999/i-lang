@@ -1,0 +1,6 @@
+// abc 12.4. abc "snhjhdds" abc // jnkfdvjdabln vd
+//1.555 55985 abd
+var variable = 45.4
+var variable2 = 45;
+,
+boolean b = true;
